@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <title>GTL和矿物油基润滑油鉴别系统</title>
+  </head>
+  <body>
+    <h1>GTL和矿物油基<br />润滑油鉴别系统</h1>
+    <h1></h1>
+    <form>
+      <label>粘度指数</label>
+      <input type="number" id="viscosityIndexInput" value="130"/>
+      <br />
+      <label>闪点(℃)</label>
+      <input type="number" id="flashPointInput" value="230"/>
+      <br />
+      <label>蒸发损失</label>
+      <input type="number" id="evaporationLossInput" value="7.5"/>
+      <br />
+      <label>倾点(℃)</label>
+      <input type="number" id="pourPointInput" value="-24"/>
+      <br />
+      <input type="button" value="鉴别" onclick="checkGTLOil(parseFloat(viscosityIndexInput.value), parseFloat(flashPointInput.value), parseFloat(evaporationLossInput.value), parseFloat(pourPointInput.value))" />
+    </form>
+    <script>
+      function checkGTLOil(viscosityIndex, flashPoint, evaporationLoss, pourPoint) {
+        if (typeof viscosityIndex !== 'number' || typeof flashPoint !== 'number' || typeof evaporationLoss !== 'number' || typeof pourPoint !== 'number') {
+          alert('请输入正确的参数类型，应为整数或小数！');
+          return;
+        }
+        let viscosityIndexRatio = viscosityIndex / 130;
+        let flashPointRatio = flashPoint / 230;
+        let evaporationLossRatio = evaporationLoss / 7.5;
+        let pourPointRatio = pourPoint / -24;
+        if(viscosityIndexRatio>=1){
+          viscosityIndexRatio=1
+        };
+        if(flashPointRatio>=1){
+          flashPointRatio=1
+        };
+        if(evaporationLossRatio>=1){
+          evaporationLossRatio=1
+        };
+        if(pourPointRatio>=1){
+          pourPointRatio=1
+        };
+        let result = Math.abs(viscosityIndexRatio * flashPointRatio * evaporationLossRatio * pourPointRatio);
+        if (result > 0.7) {
+          alert('该产品为GTL基础油！');
+        } else {
+          alert('该产品为矿物油基础油！');
+        }
+      }
+    </script>
+    <style>
+    h1 {
+      text-align: center;
+    }
+    input {
+      justify-content: center;
+      text-align: center
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    </style>>
+  </body>
+</html>
